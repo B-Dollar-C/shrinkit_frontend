@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>URL Shortener</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: Poppins;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .hero .image {
+            width: 35%;
+            /* border: 1px solid red; */
+            margin: 0 20px;
+        }
+
+        .hero .text {
+            width: 60%;
+            /* border: 1px solid black; */
+            width: 40%;
+            text-align: center;
+        }
+
+        .hero .text h1 {
+            font-weight: 500;
+            font-size: 40px;
+        }
+
+        .hero .text p {
+            font-weight: 200;
+            font-size: 30px;
+        }
+
+        .form {
+            max-width: 900px;
+            height: 20vh;
+            margin: 10px auto;
+            padding: 30px;
+            background-color: #0031869c;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        form .input {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 10px;
+        }
+
+        .input input[type="text"] {
+            width: 700px;
+            height: 29px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 18px;
+            margin-right: 3px;
+        }
+
+        .input input[type="text"]:focus {
+            outline: 0;
+        }
+
+        .input button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 18px 30px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            height: 52px;
+        }
+
+        div#shortenedURLDIV {
+            background: white;
+            width: 93%;
+            height: 30px;
+            padding: 10px;
+            color: #007bff;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        p#shortenedURL {
+            color: #007bff;
+        }
+
+        div#shortenedURLDIV button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 7px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 800px) {
+            .hero {
+                flex-direction: column;
+                justify-content: center;
+                margin: 10px;
+            }
+
+            .hero .image {
+                width: 70%;
+                margin: 0 20px;
+                order: 0;
+                margin-bottom: 10px;
+            }
+
+            .hero .text {
+                width: 80%;
+                text-align: center;
+                order: 1;
+                margin-bottom: 10px;
+            }
+
+            .hero .text h1 {
+                font-weight: 500;
+                font-size: 30px;
+            }
+
+            .hero .text p {
+                font-weight: 200;
+                font-size: 20px;
+            }
+
+            .form {
+                width: 85%;
+                height: 40vh;
+                margin: 10px auto;
+            }
+
+            form .input {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+            }
+
+            .input input[type="text"] {
+                width: 100%;
+            }
+
+            .input button[type="submit"] {
+                width: 40%;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+        }
+
+         /* Add CSS styles to make the title more attractive */
+         h1 {
+          font-size: 36px; /* Adjust the font size as needed */
+          color: #333; /* Text color */
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
+          display: inline-block; /* Ensure inline-block for emoji alignment */
+        }
+    
+        /* Style the emoji */
+        .emoji {
+          font-size: 36px; /* Adjust the font size to match the title */
+          margin-right: 10px; /* Add spacing between the emoji and text */
+        }
+        .copyright {
+            background-color: #ADD8E6;/* Bluish-yellow background color */
+  color: #333; /* Text color */ /* Text color */
+  text-align: center; /* Center-align the text */
+  padding: 10px; /* Add padding for spacing */
+  font-family: Arial, Helvetica, sans-serif; /* Font family */
+}
+
+.copyright p {
+  margin: 0; /* Remove default margin for the paragraph */
+  font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="text">
+            <h1> <span class="emoji">🚀</span>Shrinkit</h1>
+            <br><br>
+            <p style="background-color: rgb(143, 109, 182); padding: 10px; color: white; font-family: Arial, Helvetica, sans-serif; border-radius: 15px;">
+                No more long URLs ! Shrink It with us for <span style="color: #FFD700; font-weight: bold;">FREE 🎉</span>
+            </p>
+        </div>
+        <div class="image">
+            <img src="https://alokverma-uiproject-13.netlify.app/assets/SAAS%20landing%20page/30495%20[Converted]-01(1).svg"
+                alt="hero_image">
+        </div>
+    </div>
+    <div class="form">
+        <form action="http://localhost:8080/shorten" method="POST">
+            <div class="input">
+                <input type="text" id="originalURL" name="originalURL" required>
+                <button type="submit" style="font-size: 16px;">Shorten URL</button>
+            </div>
+        </form>
+        <div class="shortened-url">
+            <div id="shortenedURLDIV">
+                <p id="shortenedURL"></p>
+                <button id="copy" onclick="copyText()" style="font-size: 16px;">Copy & Clear</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const form = document.querySelector('form');
+        const shortenedURLElement = document.getElementById('shortenedURL');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            clear();
+            const originalURL = document.getElementById('originalURL').value;
+            const response = await fetch('http://localhost:8080/shorten', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ originalURL })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const newURLLink = document.createElement('a');
+                newURLLink.href = data.NewURL;
+                newURLLink.textContent = data.NewURL;
+                shortenedURLElement.appendChild(newURLLink);
+            } else {
+                shortenedURLElement.textContent = 'Error shortening URL';
+            }
+        });
+        function copyText() {
+            var URL = document.getElementById("shortenedURL");
+            const res = navigator.clipboard.writeText(URL.innerText);
+            Swal.fire({
+                icon: 'success',
+                title: 'Copied!',
+                text: 'The URL has been copied to the clipboard.',
+                showConfirmButton: false,
+                timer: 2000 // Set the timer to auto-close the dialog after 1.5 seconds
+            });
+            clear();
+            clearOriginalURL();
+        }
+        function clear(){
+            var URL = document.getElementById("shortenedURL");
+            URL.innerText = '';
+        }
+        function clearOriginalURL(){
+            const originalURL = document.getElementById('originalURL');
+            originalURL.value=null;
+        }
+    </script>
+<footer class="copyright">
+    <p>&copy; 2023 B$C (Northern AI). All rights reserved.</p>
+  </footer>
+    
+</body>
+</html>
